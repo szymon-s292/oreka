@@ -1,31 +1,36 @@
-'use client'
 import Link from "next/link";
 
 export default function Hello() {
   return (
-    <div
-      className={`flex justify-center items-center flex-col h-screen gap-20 select-none transition-opacity duration-500 ease-out opacity-100`}
-    >
-      <div>
-        <h1 className="mx-5 font-bold lg:text-6xl bg-[#f1f1f11f] backdrop-blur-xs p-8 rounded-3xl text-4xl">
-          <span>Zrealizuj</span> <span>swoje</span> <br className="lg:hidden"/>
-          <span>marzenie</span> <span>o</span> <span>domu</span> <br />
-          <span>Wybierz</span> <span>najlepszy</span><br className="lg:hidden"/>
-          <span>projekt</span> <span>dla</span> <span>siebie</span>
+    <section className="h-screen relative flex items-center justify-center text-gray-800 parallax-bg" >
+      <div className="absolute inset-0 bg-opacity-60"></div>
+
+      <div className="relative z-10 max-w-3xl rounded-lg text-center p-6" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+        <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-fade-in-up">
+          Zrealizuj swoje marzenie o domu
+          <br />
+          <span className="text-gray-800">Wybierz najlepszy projekt dla siebie</span>
         </h1>
-      </div>
-      <div className="flex gap-5 lg:gap-20">
-        <p>
-          <Link href="#projects" className="text-white text-lg bg-blue-400 rounded-full px-6 py-2 hover:border-blue-500 border-blue-400 border-2 shadow-lg hover:bg-blue-500 hover:text-white hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out">
+
+        <p className="text-lg md:text-xl mb-8 gray-800 animate-fade-in-up">
+          Oferujemy wyjątkowe projektów domów – dopasuj je do swoich potrzeb, stylu życia i budżetu.
+        </p>
+
+        <div className="flex flex-col md:flex-row justify-center gap-4 animate-fade-in-up">
+          <Link
+            href={'#projects'}
+            className="bg-gray-800 hover:text-gray-800 hover:bg-white text-white py-3 px-6 rounded-lg transition-all shadow-lg"
+          >
             Przeglądaj projekty
           </Link>
-        </p>
-        <p>
-          <Link href="#contact" className="text-lg rounded-full px-8 py-2 border-blue-400 border-2 shadow-lg hover:bg-blue-400 hover:text-white hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out">
-            Kontakt
+          <Link
+            href={'#contact'}
+            className="bg-white text-gray-600 hover:text-gray-800 py-3 px-6 rounded-lg transition-all shadow-lg"
+          >
+            Skontaktuj się
           </Link>
-        </p>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,11 +1,11 @@
 'use client';
-
+import axios from "axios";
 import { useState } from "react";
 import { useForm, FieldErrors } from "react-hook-form";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import FadeInOnScroll from "@/app/FadeInOnScroll";
 
-// Type for form data
 type FormData = {
   firstName: string;
   lastName: string;
@@ -13,6 +13,18 @@ type FormData = {
   email?: string;
   message: string;
   consent: boolean;
+};
+
+const BASE_URL = process.env.BASE_URL as string;
+
+const formatDate = (date: Date): string => {
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${hours}:${minutes} ${day}.${month}.${year}`;
 };
 
 const ContactForm = () => {
@@ -28,20 +40,27 @@ const ContactForm = () => {
       return;
     }
 
-    if (!data.consent) {
-      toast.error("Musisz wyrazić zgodę na przetwarzanie danych osobowych");
-      setLoading(false);
-      return;
-    }
-
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Wiadomość wysłana pomyślnie!");
-    }, 2000);
+    const currentDate = new Date();
+    axios.post(`http://localhost:3000/api/contact`, {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phone: data.phoneNumber, 
+      email: data.email,
+      message: data.message,
+      time: formatDate(currentDate)
+    }).then(res => {
+      if(res.status == 200)
+        toast.success("Wiadomość wysłana pomyślnie!")
+      else
+        toast.error("Spróbuj ponownie później")
+    }).catch(err => {
+      console.log(err)
+      toast.error("Spróbuj ponownie później")
+    })
+    setLoading(false);
   };
 
   const onError = (error: FieldErrors<FormData>) => {
-    // Use Object.keys to iterate over keys, which are guaranteed to be keys of `FormData`
     for (const key of Object.keys(error) as Array<keyof FormData>) {
       const errorMessage = error[key]?.message;
       if (errorMessage) {
@@ -50,10 +69,9 @@ const ContactForm = () => {
       }
     }
   };
-  
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-lg w-full p-6 bg-white lg:rounded-xl shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Formularz kontaktowy</h2>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="mb-4">
@@ -63,7 +81,6 @@ const ContactForm = () => {
             {...register("firstName", { required: "Imię jest wymagane" })}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
-          {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName.message}</p>}
         </div>
 
         <div className="mb-4">
@@ -73,7 +90,6 @@ const ContactForm = () => {
             {...register("lastName", { required: "Nazwisko jest wymagane" })}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
-          {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
         </div>
 
         <div className="mb-4">
@@ -83,7 +99,6 @@ const ContactForm = () => {
             {...register("phoneNumber")}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
-          {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>}
         </div>
 
         <div className="mb-4">
@@ -93,7 +108,6 @@ const ContactForm = () => {
             {...register("email")}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
         </div>
 
         <div className="mb-4">
@@ -102,25 +116,25 @@ const ContactForm = () => {
             {...register("message", { required: "Wiadomość nie może być pusta" })}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           ></textarea>
-          {errors.message && <p className="text-red-500 text-sm">{errors.message.message}</p>}
         </div>
 
         <div className="mb-4">
-          <label className="flex items-center">
+          <label className="flex items-center cursor-pointer">
             <input
               type="checkbox"
-              {...register("consent")}
-              className="mr-2"
+              {...register("consent", { required: "Zaznaczenie zgody jest wymagane do wysłania wiadomości" })}
+              className="mr-2 cursor-pointer"
             />
+            <p className="text-xs">
             Akceptuję zgodę na przetwarzanie danych osobowych
+            </p>
           </label>
-          {errors.consent && <p className="text-red-500 text-sm">{errors.consent.message}</p>}
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400"
+          className="cursor-pointer w-full pointer py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400"
         >
           {loading ? "Wysyłanie..." : "Wyślij"}
         </button>
