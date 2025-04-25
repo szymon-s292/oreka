@@ -1,10 +1,8 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
 import Link from "next/link";
-import { ProjectCategory, Project} from "@/app/types/types"
-import FadeInOnScroll from "@/app/FadeInOnScroll";
+import { Project} from "@/app/types/types"
 import Footer from "@/app/ui/footer"
 import Header from "@/app/ui/header";
 import { FiDownload } from "react-icons/fi";
@@ -17,12 +15,12 @@ interface ProjectProps {
   };
 }
 
-const BASE_URL = process.env.BASE_URL as string;
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 
 export default async function ProjectPage({ params }: ProjectProps) {
   const id = (await params).id;
 
-  const response = await axios.get(`${BASE_URL}/api/project/${id}`);
+  const response = await axios.get(`${NEXT_PUBLIC_BASE_URL}/api/project/${id}`);
   const project: Project = response.data;
 
   return (
@@ -34,12 +32,12 @@ export default async function ProjectPage({ params }: ProjectProps) {
           {(project.images && project.images.length > 1) && <div className="w-full h-[320px] lg:h-[600px] relative">
             <ImageSlider
               images={project.images}
-              baseUrl={BASE_URL}
+              baseUrl={NEXT_PUBLIC_BASE_URL}
               altText={project.name}
             />
             </div>}
           {(project.images && project.images.length === 1) && <div className="w-full h-[320px] lg:h-[500px] relative">
-            <Image src={BASE_URL + project.images[0].url} alt="image" fill className="rounded-lg object-cover"/>
+            <Image src={NEXT_PUBLIC_BASE_URL + project.images[0].url} alt="image" fill className="rounded-lg object-cover"/>
             </div>}
 
           <section className="flex gap-8 flex-col lg:flex-row">
@@ -55,7 +53,7 @@ export default async function ProjectPage({ params }: ProjectProps) {
                 {project.files.map((file) => {
                   return (
                     <li key={file.url} className="text-sm hover:underline my-3 flex">
-                      <FiDownload size={20}/><Link href={BASE_URL + file.url} download target="_blank" rel="noopener noreferrer">{file.name}</Link>
+                      <FiDownload size={20}/><Link href={NEXT_PUBLIC_BASE_URL + file.url} download target="_blank" rel="noopener noreferrer">{file.name}</Link>
                     </li>
                   )
                 })}

@@ -5,8 +5,8 @@ import Image from "next/image";
 import FadeInOnScroll from "@/app/FadeInOnScroll";
 
 export default async function ProjectCategories(){
-    const BASE_URL = process.env.BASE_URL as string;
-    const data = await axios.get(`${BASE_URL}/api/categories`)
+    const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+    const data = await axios.get(`${NEXT_PUBLIC_BASE_URL}/api/categories`)
     const categories = await data.data
 
     return (
@@ -18,7 +18,7 @@ export default async function ProjectCategories(){
                 <div className="flex flex-wrap justify-center lg:justify-start gap-8">
                 {categories.map((post: ProjectCategory) => (
                     <div key={post._id} className="shadow-lg rounded-lg bg-neutral-300 hover:text-white hover:bg-blue-400 duration-200">
-                        <Link href={`${BASE_URL}/category/${post._id}`}>
+                        <Link href={`${NEXT_PUBLIC_BASE_URL}/category/${post._id}`}>
                             {(post.photoURL == '' || !post.photoURL) ? (
                                 <div className="h-[220px] w-[300px]">
                                     <Image src={"/oreka-logo.png"} width={300} height={220} alt="category-image" className="rounded-t-lg object-cover w-full h-full"/>

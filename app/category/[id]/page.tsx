@@ -16,14 +16,14 @@ interface CategoryProps {
 
 export default async function Category({ params }: CategoryProps) {
   const id = (await params).id;
-  const BASE_URL = process.env.BASE_URL as string;
+  const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 
-  const categoryData = await axios.get(`${BASE_URL}/api/categories`)
+  const categoryData = await axios.get(`${NEXT_PUBLIC_BASE_URL}/api/categories`)
   const category: ProjectCategory | undefined = (await categoryData.data).find(
     (c: ProjectCategory) => c._id === id
   );
   
-  const projectsData = await axios.get(`${BASE_URL}/api/projects/${id}`)
+  const projectsData = await axios.get(`${NEXT_PUBLIC_BASE_URL}/api/projects/${id}`)
   const projects: Project[] | undefined = (await projectsData.data)
 
   return (
@@ -50,7 +50,7 @@ export default async function Category({ params }: CategoryProps) {
       <div className="lg:mx-[15%] flex flex-col gap-8 my-8">
       {projects && projects.map((p) => {
         const imageUrl = p.images?.[0]?.name
-          ? `http://localhost:3000${p.images[0].url}`
+          ? `${NEXT_PUBLIC_BASE_URL}${p.images[0].url}`
           : '/oreka-logo.png';
 
         return (

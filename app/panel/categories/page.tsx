@@ -8,6 +8,8 @@ import Image from "next/image";
 import { FiRefreshCcw, FiTrash2, FiEdit2 } from 'react-icons/fi';
 import { FiPlus } from 'react-icons/fi';
 
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+
 export default function CategoriesList() {
   const [data, setData] = useState<ProjectCategory[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -24,7 +26,7 @@ export default function CategoriesList() {
 
   const load = () => {
     setLoading(true);
-    axios.get(`http://localhost:3000/api/categories`)
+    axios.get(`${NEXT_PUBLIC_BASE_URL}/api/categories`)
       .then(res => res.data)
       .then(data => setData(data))
       .catch(() => {
@@ -35,7 +37,7 @@ export default function CategoriesList() {
   };
 
   const handleDelete = async (id: string) => {
-    axios.delete(`http://localhost:3000/api/categories/${id}`)
+    axios.delete(`${NEXT_PUBLIC_BASE_URL}/api/categories/${id}`)
       .then(res => {
         setData((prevData) => prevData.filter((category) => category._id !== id));
         toast.success("Kategoria usunięta");
@@ -79,7 +81,7 @@ export default function CategoriesList() {
     if (categoryImage)
       formData.append('image', categoryImage);
 
-    axios.put(`http://localhost:3000/api/categories/${id}`, formData, {
+    axios.put(`${NEXT_PUBLIC_BASE_URL}/api/categories/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
@@ -108,7 +110,7 @@ export default function CategoriesList() {
     formData.append('name', categoryName);
     formData.append('image', categoryImage ? categoryImage : '');
 
-    axios.post('http://localhost:3000/api/categories', formData, {
+    axios.post(`${NEXT_PUBLIC_BASE_URL}/api/categories`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
@@ -241,7 +243,7 @@ export default function CategoriesList() {
                 setEditMode(true);
                 setShowEditModal(true);
                 setCategoryName(category.name);
-                setImagePreview(`http://localhost:3000${category.photoURL}`);
+                setImagePreview(`${NEXT_PUBLIC_BASE_URL}${category.photoURL}`);
                 setCategoryImage(null);
                 setId(category._id);
               }}><FiEdit2 /> Edytuj</button>

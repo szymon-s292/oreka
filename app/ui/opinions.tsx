@@ -1,4 +1,4 @@
-"use client"; // Make sure this is at the top if you're using App Router
+"use client";
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";

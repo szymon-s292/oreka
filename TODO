@@ -13,7 +13,8 @@ reflector
 cloudflare
 
 have to be done:
-domain ssl 
+ssl 
 Captcha
 Factorize client api calls 
 Sanitize & upload of only images
+indexing

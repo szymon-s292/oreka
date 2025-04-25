@@ -6,13 +6,14 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { FiRefreshCcw, FiTrash2, FiClipboard } from 'react-icons/fi';
 
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 export default function ContactList() {
   const [data, setData] = useState<ContactForm[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   const load = () => {
     setLoading(true);
-    fetch(`http://localhost:3000/api/contact`)
+    fetch(`${NEXT_PUBLIC_BASE_URL}/api/contact`)
       .then((res) => res.json())
       .then((data) => {
         setData(data.reverse());
@@ -31,7 +32,7 @@ export default function ContactList() {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete('http://localhost:3000/api/contact', {
+      await axios.delete(`${NEXT_PUBLIC_BASE_URL}/api/contact`, {
         data: { id },
       });
       setData((prevData) => prevData.filter((form) => form._id !== id));

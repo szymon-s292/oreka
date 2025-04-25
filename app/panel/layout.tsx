@@ -2,10 +2,9 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { FiHome, FiMail, FiFolder, FiGrid, FiUsers, FiLogOut } from "react-icons/fi";
-import { toast } from "react-toastify";
+import { FiHome, FiMail, FiFolder, FiGrid, FiUsers, } from "react-icons/fi";
 import { authOptions } from "../auth";
-import { signOut } from "next-auth/react";
+import Logout from "../ui/logout";
 
 const navItems = [
   { id: 0, href: "/panel", label: "Panel główny", icon: <FiHome size={18} className="mr-2" /> },
@@ -20,11 +19,6 @@ export default async function PanelLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const handleLogout = async () => {
-    toast.success("Pomyślnie wylogowano")
-    await signOut({ callbackUrl: '/' });
-  };
 
   const session = await getServerSession(authOptions);
 
@@ -54,9 +48,7 @@ export default async function PanelLayout({
         </nav>
 
         <div className="p-4 border-t border-gray-200">
-          <button className="w-full cursor-pointer flex items-center justify-start px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-red-400 text-sm font-medium transition">
-            <FiLogOut size={18} className="mr-2" /> Wyloguj
-          </button>
+          <Logout/>
         </div>
       </aside>
       <section className="w-full max-w-screen flex-1 p-8 overflow-auto">

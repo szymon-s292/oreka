@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useForm, FieldErrors } from "react-hook-form";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import FadeInOnScroll from "@/app/FadeInOnScroll";
 
 type FormData = {
   firstName: string;
@@ -15,7 +14,7 @@ type FormData = {
   consent: boolean;
 };
 
-const BASE_URL = process.env.BASE_URL as string;
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 
 const formatDate = (date: Date): string => {
   const hours = date.getHours().toString().padStart(2, '0');
@@ -41,7 +40,7 @@ const ContactForm = () => {
     }
 
     const currentDate = new Date();
-    axios.post(`http://localhost:3000/api/contact`, {
+    axios.post(`${NEXT_PUBLIC_BASE_URL}/api/contact`, {
       firstName: data.firstName,
       lastName: data.lastName,
       phone: data.phoneNumber, 

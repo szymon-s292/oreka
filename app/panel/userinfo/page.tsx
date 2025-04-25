@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+
 export default function UsersList() {
     const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm();
     const { data: session, update } = useSession();
@@ -19,7 +21,7 @@ export default function UsersList() {
     }, [session, setValue]);
 
     const handleUsername = async (newName: string) => {
-        axios.put(`http://localhost:3000/api/user/${session?.user._id}/name`, { name: newName})
+        axios.put(`${NEXT_PUBLIC_BASE_URL}/api/user/${session?.user._id}/name`, { name: newName})
         .then(res => {
             setValue("name", newName)
             toast.success("Nazwa użytkownika zmieniona")
@@ -32,7 +34,7 @@ export default function UsersList() {
     };
 
     const handleEmail = async (newEmail: string) => {
-        axios.put(`http://localhost:3000/api/user/${session?.user._id}/email`, {email: newEmail})
+        axios.put(`${NEXT_PUBLIC_BASE_URL}/api/user/${session?.user._id}/email`, {email: newEmail})
         .then(res => {
             setValue("email", newEmail)
             toast.success("E-mail został zmieniony")
@@ -45,7 +47,7 @@ export default function UsersList() {
     };
 
     const handlePassword = async (password: string) => {
-        axios.put(`http://localhost:3000/api/user/${session?.user._id}/password`, {password: password})
+        axios.put(`${NEXT_PUBLIC_BASE_URL}/api/user/${session?.user._id}/password`, {password: password})
         .then(res => {
             setValue("password", '')
             toast.success("Hasło zostało zmienione")

@@ -12,6 +12,7 @@ import { FiPlus } from 'react-icons/fi';
 import { MdImage } from 'react-icons/md';
 import { FiFile } from 'react-icons/fi';
 
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 export default function ProjectList() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -30,7 +31,7 @@ export default function ProjectList() {
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
 
   const loadCategoriesList = () => {
-    axios.get(`http://localhost:3000/api/categories`)
+    axios.get(`${NEXT_PUBLIC_BASE_URL}/api/categories`)
       .then(res => res.data)
       .then(data => setCategoriesList(data))
       .catch(() => {
@@ -40,7 +41,7 @@ export default function ProjectList() {
 
   const loadProjectsList = () => {
     setLoading(true)
-    axios.get(`http://localhost:3000/api/projects/${selected}`)
+    axios.get(`${NEXT_PUBLIC_BASE_URL}/api/projects/${selected}`)
       .then(res => res.data)
       .then(data => {
         setProjects(data)
@@ -102,7 +103,7 @@ export default function ProjectList() {
   };
 
   const handleDelete = async () => {
-    axios.delete(`http://localhost:3000/api/project/${id}`)
+    axios.delete(`${NEXT_PUBLIC_BASE_URL}/api/project/${id}`)
     .then(res => {
       setProjects(ps => ps.filter(p => {
         if(p._id != id) return p
@@ -152,7 +153,7 @@ export default function ProjectList() {
     formData.append('imageMap', JSON.stringify(imageMap))
 
     if(editMode) {
-      axios.put(`http://localhost:3000/api/project/${id}`, formData, {
+      axios.put(`${NEXT_PUBLIC_BASE_URL}/api/project/${id}`, formData, {
         headers: {
         'Content-Type': 'multipart/form-data',
       }}).then(res => {
@@ -186,7 +187,7 @@ export default function ProjectList() {
         setIsFormSending(false)
       })
     } else {
-      axios.post('http://localhost:3000/api/project', formData, {
+      axios.post(`${NEXT_PUBLIC_BASE_URL}/api/project`, formData, {
         headers: {
         'Content-Type': 'multipart/form-data',
       }}).then(res => {
@@ -358,7 +359,7 @@ export default function ProjectList() {
                     return (
                       <li key={index} className="w-96">
                         <div className="flex justify-between p-2 border text-gray-400 border-gray-300 rounded-md w-full">
-                          <Link target="_blank" href={`http://localhost:3000/uploads/project/${id}/file-${index + 1}.${file.name.split('.').at(-1)}`}>
+                          <Link target="_blank" href={`${NEXT_PUBLIC_BASE_URL}/uploads/project/${id}/file-${index + 1}.${file.name.split('.').at(-1)}`}>
                           <p className="hover:underline hover:text-gray-600 cursor-pointer">
                             {file.name}
                           </p>
@@ -424,7 +425,7 @@ export default function ProjectList() {
               <div className="flex flex-col">
                   <div className="h-[270px] w-[420px]">
                     {project?.images && project?.images?.length > 0 ? (
-                      <Image src={`http://localhost:3000${project?.images[0].url}`} width={420} height={270} alt="" className="rounded-t-lg object-cover w-full h-full"/>
+                      <Image src={`${NEXT_PUBLIC_BASE_URL}${project?.images[0].url}`} width={420} height={270} alt="" className="rounded-t-lg object-cover w-full h-full"/>
                     ) : (
                       <Image src={"/oreka-logo.png"} width={420} height={270} alt="" className="rounded-t-lg object-cover w-full h-full"/>
                     )}
@@ -460,11 +461,11 @@ export default function ProjectList() {
                 setEditMode(true)
 
                 Promise.all([...(project.images || []).map(img =>
-                    axios.get(`http://localhost:3000${img.url}`, { responseType: 'blob' })
+                    axios.get(`${NEXT_PUBLIC_BASE_URL}${img.url}`, { responseType: 'blob' })
                       .then(res => new File([res.data], img.name || 'image', { type: res.data.type }))
                   ),
                   ...(project.files || []).map(file =>
-                    axios.get(`http://localhost:3000${file.url}`, { responseType: 'blob' })
+                    axios.get(`${NEXT_PUBLIC_BASE_URL}${file.url}`, { responseType: 'blob' })
                       .then(res => new File([res.data], file.name || 'file', { type: res.data.type }))
                   )
                 ]).then(allFiles => {
@@ -480,7 +481,7 @@ export default function ProjectList() {
                 // setSelect(project.categoryId)
                 setShowEditModal(true)
                 }}><FiEdit2 /> Edytuj</button>
-                <Link href={`http://localhost:3000/project/${project._id}`}>
+                <Link href={`${NEXT_PUBLIC_BASE_URL}/project/${project._id}`}>
               <button className="flex text-sm hover:underline" onClick={() => {
               }}><FiExternalLink /> Podgląd</button>
               </Link>

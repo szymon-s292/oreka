@@ -65,10 +65,10 @@ export default function Header() {
                     </Link>
                 </div>
                 <nav className="flex items-center gap-5 lg:gap-10 px-2 lg:px-0">
-                    <Link href={'#about'} className={`nav-link font-semibold ${activeSection === 'about' ? 'text-blue-500' : ''}`}>O mnie</Link>
-                    <Link href={'#projects'} className={`nav-link font-semibold ${activeSection === 'projects' ? 'text-blue-500' : ''}`}>Katalog</Link>
-                    <Link href={'#opinions'} className={`nav-link font-semibold ${activeSection === 'opinions' ? 'text-blue-500' : ''}`}>Opinie</Link>
-                    <Link href={'#contact'} className={`nav-link font-semibold ${activeSection === 'contact' ? 'text-blue-500' : ''}`}>Kontakt</Link>
+                    <Link href={'/#about'} className={`nav-link font-semibold ${activeSection === 'about' ? 'text-blue-500' : ''}`}>O mnie</Link>
+                    <Link href={'/#projects'} className={`nav-link font-semibold ${activeSection === 'projects' ? 'text-blue-500' : ''}`}>Katalog</Link>
+                    <Link href={'/#opinions'} className={`nav-link font-semibold ${activeSection === 'opinions' ? 'text-blue-500' : ''}`}>Opinie</Link>
+                    <Link href={'/#contact'} className={`nav-link font-semibold ${activeSection === 'contact' ? 'text-blue-500' : ''}`}>Kontakt</Link>
                 </nav>
             </div>
         </header>

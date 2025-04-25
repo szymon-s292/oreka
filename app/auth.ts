@@ -5,7 +5,7 @@ import axios from "axios";
 import { isObjectIdOrHexString, isValidObjectId } from 'mongoose';
 import { MongoClient, ObjectId } from 'mongodb'
 
-const BASE_URL = process.env.BASE_URL as string;
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);
 const dbName = process.env.DB_NAME as string
@@ -22,7 +22,7 @@ const authOptions: AuthOptions = {
         if (!credentials?.email || !credentials.password) return null;
 
         try {
-          // const response = await axios.get(`${BASE_URL}api/users?email=${credentials.email}`);
+          // const response = await axios.get(`${NEXT_PUBLIC_BASE_URL}api/users?email=${credentials.email}`);
           // const user = response.data.user;
           await client.connect();
           const db = client.db(dbName);
@@ -61,7 +61,7 @@ const authOptions: AuthOptions = {
     },
     async session({ session, token }) {
       try {
-        // const res = await axios.get(`${BASE_URL}api/users/${token.id}`);
+        // const res = await axios.get(`${NEXT_PUBLIC_BASE_URL}api/users/${token.id}`);
         // const user = res.data.user;
         await client.connect();
         const db = client.db(dbName);
