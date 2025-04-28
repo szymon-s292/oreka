@@ -1,31 +1,33 @@
-import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FiHome, FiMail, FiFolder, FiGrid, FiUsers, } from "react-icons/fi";
-import { authOptions } from "../auth";
 import Logout from "../ui/logout";
-
-const navItems = [
-  { id: 0, href: "/panel", label: "Panel główny", icon: <FiHome size={18} className="mr-2" /> },
-  { id: 1, href: "/panel/contacts", label: "Próby kontaktu", icon: <FiMail size={18} className="mr-2" /> },
-  { id: 2, href: "/panel/categories", label: "Kategorie projektów", icon: <FiFolder size={18} className="mr-2" /> },
-  { id: 3, href: "/panel/projects", label: "Projekty", icon: <FiGrid size={18} className="mr-2" /> },
-  { id: 4, href: "/panel/userinfo", label: "Twoje informacje", icon: <FiUsers size={18} className="mr-2" /> },
-];
+import { auth } from "../../auth";
+import { SessionProvider } from "next-auth/react";
 
 export default async function PanelLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  const navItems = [
+    { id: 0, href: "/panel", label: "Panel główny", icon: <FiHome size={18} className="mr-2" /> },
+    { id: 1, href: "/panel/contacts", label: "Próby kontaktu", icon: <FiMail size={18} className="mr-2" /> },
+    { id: 2, href: "/panel/categories", label: "Kategorie projektów", icon: <FiFolder size={18} className="mr-2" /> },
+    { id: 3, href: "/panel/projects", label: "Projekty", icon: <FiGrid size={18} className="mr-2" /> },
+    { id: 4, href: "/panel/userinfo", label: "Twoje informacje", icon: <FiUsers size={18} className="mr-2" /> },
+  ];
 
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session)
     redirect('/login')
 
   return (
+    <SessionProvider session={session}>
+
     <main className="flex h-screen bg-gray-100 font-sans text-gray-800">
       <aside className="w-64 bg-white shadow-lg border-r border-gray-200 flex flex-col">
         <div className="p-6 border-b border-gray-200 flex justify-center">
@@ -55,6 +57,7 @@ export default async function PanelLayout({
         {children}
       </section>
     </main>
+</SessionProvider>
   );
 }
   

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Image from "next/image";
 import Link from "next/link";
@@ -8,14 +7,8 @@ import FadeInOnScroll from "@/app/FadeInOnScroll";
 import Footer from "@/app/ui/footer"
 import Header from "@/app/ui/header";
 
-interface CategoryProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function Category({ params }: CategoryProps) {
-  const id = (await params).id;
+export default async function Category({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 
   const categoryData = await axios.get(`${NEXT_PUBLIC_BASE_URL}/api/categories`)

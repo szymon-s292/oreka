@@ -28,7 +28,7 @@ const formatDate = (date: Date): string => {
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
     setLoading(true);

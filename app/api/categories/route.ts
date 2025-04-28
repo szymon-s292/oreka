@@ -1,7 +1,7 @@
 import { MongoClient, ObjectId } from 'mongodb'
 import path from "path";
 import fs from "fs";
-import { getSession } from '@/app/auth';
+import { getSession } from '@/auth';
 
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);
@@ -9,7 +9,7 @@ const dbName = process.env.DB_NAME as string
 const UPLOAD_DIR = process.env.ROOT_PATH as string + "public/uploads"
 
 //get all categories
-export async function GET(request: Request) {
+export async function GET() {
   await client.connect();
   const db = client.db(dbName);
   const collection = db.collection('categories');
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       buffer
     );
     
-    const updateResult = await collection.updateOne({_id: new ObjectId(result.insertedId)}, { $set: { photoURL: `/uploads/${fileName}`}}) 
+    await collection.updateOne({_id: new ObjectId(result.insertedId)}, { $set: { photoURL: `/uploads/${fileName}`}}) 
 
     return new Response(JSON.stringify({status: "ok", _id: result.insertedId, imageURI: `/uploads/${fileName}` }), {
       status: 200,

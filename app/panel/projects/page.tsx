@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef, ReactEventHandler, ReactHTMLElement } from "react"
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useState, useEffect, useRef, } from "react"
+import { useForm, } from "react-hook-form";
 import { ProjectCategory, Project, ProjectForm } from "@/app/types/types"
 import axios from 'axios'
 import { toast } from 'react-toastify';
@@ -20,7 +20,7 @@ export default function ProjectList() {
   const [categoriesList, setCategoriesList] = useState<ProjectCategory[]>([]);
   const [selected, setSelect] = useState('0');
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const { register, handleSubmit, setValue, } = useForm<ProjectForm>();
   const [imagePreviews, setImagePreviews] = useState<File[]>([]);
   const [filePreviews, setFilePreviews] = useState<File[]>([]);
   const imagesInputRef = useRef<HTMLInputElement | null>(null)
@@ -77,7 +77,7 @@ export default function ProjectList() {
       const newFiles = Array.from(files);
       toast.success(`Dodano ${newFiles.length} zdjęć`)
       setImagePreviews((prev) => [...prev, ...newFiles]);
-      setValue("images", files);
+      setValue("images", [...files] as File[]);
     }
   };
 
@@ -93,7 +93,7 @@ export default function ProjectList() {
       const newFiles = Array.from(files);
       toast.success(`Dodano ${files.length} plików`)
       setFilePreviews((prev) => [...prev, ...newFiles]);
-      setValue("files", files);
+      setValue("files", [...files] as File[]);
     }
   }
 
@@ -104,7 +104,7 @@ export default function ProjectList() {
 
   const handleDelete = async () => {
     axios.delete(`${NEXT_PUBLIC_BASE_URL}/api/project/${id}`)
-    .then(res => {
+    .then(() => {
       setProjects(ps => ps.filter(p => {
         if(p._id != id) return p
       }))
@@ -181,7 +181,7 @@ export default function ProjectList() {
         setValue('projectCategory', '0')
         setEditMode(false)
 
-      }).catch((err) => {
+      }).catch(() => {
         toast.error("Wystąpił błąd. Spróbuj ponownie poźniej");
       }).finally(() => {
         setIsFormSending(false)
@@ -207,7 +207,7 @@ export default function ProjectList() {
         setValue('projectDescription', '')
         setValue('projectCategory', '0')
         
-      }).catch((err) => {
+      }).catch(() => {
         toast.error("Wystąpił błąd. Spróbuj ponownie poźniej");
       }).finally(() => {
         setIsFormSending(false)

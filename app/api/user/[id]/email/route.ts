@@ -1,7 +1,6 @@
-import { authOptions, getSession } from '@/app/auth';
+import { getSession } from '@/auth';
 import { MongoClient, ObjectId } from 'mongodb'
-import { isObjectIdOrHexString, isValidObjectId } from 'mongoose';
-import { getServerSession } from 'next-auth';
+import { isValidObjectId } from 'mongoose';
 
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);

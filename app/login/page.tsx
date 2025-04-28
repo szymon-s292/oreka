@@ -1,13 +1,14 @@
+import { SessionProvider } from "next-auth/react";
 import LoginForm from "../ui/login-form"
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth";
 import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 
 export default async function LoginPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth()
 
-  if (session)
+  if (session?.user)
     redirect('/')
   
-  return <LoginForm/>
+  return <SessionProvider session={session}><LoginForm/></SessionProvider> 
 }
+

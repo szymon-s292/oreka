@@ -1,15 +1,22 @@
 'use client'
 
 import { useForm } from "react-hook-form";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 
+type FormData = {
+    name: string;
+    email: string;
+    password?: string;
+  };
+  
+
 export default function UsersList() {
-    const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue } = useForm<FormData>();
     const { data: session, update } = useSession();
     const [isFormSending, setIsFormSending] = useState(false);
     
@@ -22,65 +29,65 @@ export default function UsersList() {
 
     const handleUsername = async (newName: string) => {
         axios.put(`${NEXT_PUBLIC_BASE_URL}/api/user/${session?.user._id}/name`, { name: newName})
-        .then(res => {
+        .then(() => {
             setValue("name", newName)
             toast.success("Nazwa użytkownika zmieniona")
             axios.get("/api/auth/session?update");
             update({user: {...session?.user, name: newName}})
         })
-        .catch(err => {
+        .catch(() => {
             toast.error("Wystąpił błąd. Spróbuj ponownie poźniej");
         })
     };
 
     const handleEmail = async (newEmail: string) => {
         axios.put(`${NEXT_PUBLIC_BASE_URL}/api/user/${session?.user._id}/email`, {email: newEmail})
-        .then(res => {
+        .then(() => {
             setValue("email", newEmail)
             toast.success("E-mail został zmieniony")
             axios.get("/api/auth/session?update");
             update({user: {...session?.user, name: newEmail}})
         })
-        .catch(err => {
+        .catch(() => {
             toast.error("Wystąpił błąd. Spróbuj ponownie poźniej");
         })
     };
 
     const handlePassword = async (password: string) => {
         axios.put(`${NEXT_PUBLIC_BASE_URL}/api/user/${session?.user._id}/password`, {password: password})
-        .then(res => {
+        .then(() => {
             setValue("password", '')
             toast.success("Hasło zostało zmienione")
         })
-        .catch(err => {
+        .catch(() => {
             toast.error("Wystąpił błąd. Spróbuj ponownie poźniej");
         })
     };
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: FormData) => {
         if (!session?.user) return;
-
+      
         setIsFormSending(true);
-
+      
         const promises = [];
-
+      
         if (data.name !== session.user.name) {
-            promises.push(handleUsername(data.name));
+          promises.push(handleUsername(data.name));
         }
-
+      
         if (data.email !== session.user.email) {
-            promises.push(handleEmail(data.email));
+          promises.push(handleEmail(data.email));
         }
-
+      
         if (data.password && data.password.trim() !== "") {
-            promises.push(handlePassword(data.password));
+          promises.push(handlePassword(data.password));
         }
-
+      
         await Promise.all(promises);
-
+      
         setIsFormSending(false);
-    };
-
+      };
+      
     return (
         <section className="w-full">
             <div className="flex items-center justify-between mb-6">

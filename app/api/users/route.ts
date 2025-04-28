@@ -1,7 +1,6 @@
-import { isObjectIdOrHexString, isValidObjectId } from 'mongoose';
-import { MongoClient, ObjectId } from 'mongodb'
+import { MongoClient } from 'mongodb'
 import bcrypt from 'bcrypt'
-import { getSession } from '@/app/auth';
+import { getSession } from '@/auth';
 
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);

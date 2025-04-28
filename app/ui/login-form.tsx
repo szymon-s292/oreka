@@ -90,7 +90,7 @@ export default function LoginForm() {
       </div>
 
       <div className="text-sm flex justify-end mb-3 hover:underline">
-        <button onClick={(e) => {
+        <button onClick={() => {
 
         }}>Nie pamiętam hasła</button>
       </div>

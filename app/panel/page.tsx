@@ -1,10 +1,8 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth";
-import { redirect } from "next/navigation";
 import Image from "next/image";
+import { auth } from "../../auth";
 
 export default async function Panel() {
-   const session = await getServerSession(authOptions);
+   const session = await auth()
 
     return (
         <section className="flex w-full justify-center items-center h-screen p-8 overflow-y-auto">

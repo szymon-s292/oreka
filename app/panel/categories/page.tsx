@@ -38,7 +38,7 @@ export default function CategoriesList() {
 
   const handleDelete = async (id: string) => {
     axios.delete(`${NEXT_PUBLIC_BASE_URL}/api/categories/${id}`)
-      .then(res => {
+      .then(() => {
         setData((prevData) => prevData.filter((category) => category._id !== id));
         toast.success("Kategoria usunięta");
       })
@@ -192,7 +192,11 @@ export default function CategoriesList() {
                 setEditMode(false);
               }}>Anuluj</button>
               <button className="px-4 py-2 mt-4 bg-blue-500 text-white rounded cursor-pointer" onClick={() => {
-                editMode ? handleEdit(id) : handleAdd();
+                if(editMode) {
+                  handleEdit(id) 
+                } else {
+                  handleAdd();
+                }
               }}>Zapisz</button>
             </div>
           </div>

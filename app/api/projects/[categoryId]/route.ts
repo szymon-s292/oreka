@@ -1,12 +1,9 @@
 import { MongoClient, ObjectId } from 'mongodb'
-import path from "path";
-import fs from "fs";
-import { isObjectIdOrHexString, isValidObjectId } from 'mongoose';
+import { isValidObjectId } from 'mongoose';
 
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);
 const dbName = process.env.DB_NAME as string
-const UPLOAD_DIR = process.env.ROOT_PATH as string + "public/uploads"
 
 //read all/by category projects 
 export async function GET(request: Request, { params }: { params: Promise<{ categoryId: string }> },) {

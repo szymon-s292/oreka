@@ -9,15 +9,9 @@ import { FiDownload } from "react-icons/fi";
 import ContactForm from "@/app/ui/contact-form";
 import ImageSlider from "@/app/ui/image-slider";
 
-interface ProjectProps {
-  params: {
-    id: string;
-  };
-}
-
 const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 
-export default async function ProjectPage({ params }: ProjectProps) {
+export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const id = (await params).id;
 
   const response = await axios.get(`${NEXT_PUBLIC_BASE_URL}/api/project/${id}`);

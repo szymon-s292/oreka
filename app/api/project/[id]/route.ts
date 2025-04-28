@@ -3,7 +3,7 @@ import { isObjectIdOrHexString, isValidObjectId } from 'mongoose';
 import path from "path";
 import fs from "fs";
 import { ProjectResource } from '@/app/types/types';
-import { getSession } from '@/app/auth';
+import { getSession } from '@/auth';
 
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);
@@ -116,7 +116,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     }
 
     const projects = db.collection('projects');
-    const result1 = await projects.updateOne({_id: new ObjectId(projectId)}, { $set: {
+    await projects.updateOne({_id: new ObjectId(projectId)}, { $set: {
       name: name,
       description: description, 
       categoryId: new ObjectId(categoryId), 

@@ -1,7 +1,7 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import { JSDOM } from 'jsdom';
 import DOMPurify from 'dompurify';
-import { getSession } from '@/app/auth';
+import { getSession } from '@/auth';
 
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 }
 
 //read list of contact form submitions
-export async function GET(request: Request) {
+export async function GET() {
   const session = await getSession()
   if(!session?.user) {
     return new Response(JSON.stringify({status: "access denied" }), {

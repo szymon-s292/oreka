@@ -3,7 +3,7 @@ import { isObjectIdOrHexString } from 'mongoose';
 import path from "path";
 import fs from "fs";
 import { ProjectResource } from '@/app/types/types';
-import { getSession } from '@/app/auth';
+import { getSession } from '@/auth';
 
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);
@@ -89,7 +89,7 @@ export async function POST(request: Request) {
         }
     }
 
-    const result2 = await projects.updateOne({_id: new ObjectId(projectId)}, { $set: {images: images, files: files}})
+    await projects.updateOne({_id: new ObjectId(projectId)}, { $set: {images: images, files: files}})
 
     return new Response(JSON.stringify({status: "ok", projectId: projectId, projectCategory: categoryId, images: images, files: files }), {
         status: 200,

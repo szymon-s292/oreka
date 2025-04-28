@@ -16,5 +16,5 @@ have to be done:
 ssl 
 Captcha
 Factorize client api calls 
-Sanitize & upload of only images
+Sanitize xss & upload of only images
 indexing

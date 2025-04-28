@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import Provider from "./provider";
-import { getSession } from "./auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,22 +18,23 @@ export const metadata: Metadata = {
   title: "Oreka - Ewa gruszczyńska",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSession()
   return (
     <html lang="pl">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Provider session={session}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           {children}
           <ToastContainer position="top-right" autoClose={3500} hideProgressBar={false} limit={3} />
-        </Provider>
       </body>
     </html>
   );
 }
+
+
+
+{/* <ToastContainer position="top-right" autoClose={3500} hideProgressBar={false} limit={3} /> */}
+{/* </SessionProvider> */}
+{/* <SessionProvider session={session}> */}

@@ -2,7 +2,7 @@ import { MongoClient, ObjectId } from 'mongodb'
 import { isObjectIdOrHexString } from 'mongoose';
 import path from "path";
 import fs from "fs";
-import { getSession } from '@/app/auth';
+import { getSession } from '@/auth';
 
 const MONGO_URI = process.env.MONGO_URI as string;
 const client = new MongoClient(MONGO_URI);
@@ -102,7 +102,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   {
     const deleteResult = await collection.deleteOne({ _id: new ObjectId(id)});
     const fileName = `category-${id}-image.${category.photoURL.split(".").at(-1)}`
-    fs.unlink(`${UPLOAD_DIR}/${fileName}`, (err) => {})
+    fs.unlink(`${UPLOAD_DIR}/${fileName}`, () => {})
 
     const projects = db.collection('projects');
     const projectIdsToDelete = await projects.find({categoryId: new ObjectId(id)}).toArray()
@@ -121,7 +121,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
       }
     }
 
-    const projectsDeleteResult = await projects.deleteMany({categoryId: new ObjectId(id)})
+    await projects.deleteMany({categoryId: new ObjectId(id)})
 
     if (deleteResult.deletedCount === 1) {
       return new Response(JSON.stringify({ status: "ok" }), {
