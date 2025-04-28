@@ -18,3 +18,5 @@ Captcha
 Factorize client api calls 
 Sanitize xss & upload of only images
 indexing
+opinions from emails 
+remote patterns
