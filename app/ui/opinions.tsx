@@ -33,11 +33,9 @@ export default function Opinions() {
       <FadeInOnScroll delay={600}>
       <div className="transition-transform duration-300 hover:scale-105 bg-white p-4 h-fit lg:min-h-[500px] lg:min-w-[350px] lg:w-[350px] min-h-[400px] min-w-[250px] w-[250px] rounded-xl shadow-lg flex justify-evenly flex-col lg:p-10 items-center">
         <Image src={"/person.svg"} height={100} width={100} alt="person" className="rounded-full" />
-        <p className="text-xl font-bold">Klient</p>
-        <StarRating stars={4} />
-        <p className="lg:text-lg lg:tracking-wide">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam modi dolorem molestias dolores unde vel, itaque,
-          porro at quasi ipsa sed mollitia commodi. Tempora praesentium nostrum quis? Assumenda, labore deserunt!
+        <p className="text-xl font-bold">Paulina Sztandera</p>
+        <StarRating stars={5} />
+        <p className="lg:text-lg lg:tracking-wide">Jestem bardzo zadowolona ze współpracy z Panią Ewą. Nie tylko przygotowała projekt domu ale również pomogła w dużo szerszym zakresie. Bardzo dobry kontakt i pozytywne nastawienie to kolejne atuty Pani Ewy Serdecznie polecam współpracę.
         </p>
       </div>
       </FadeInOnScroll>
@@ -68,8 +66,7 @@ export default function Opinions() {
           <Image src={"/person.svg"} height={100} width={100} alt="person" className="rounded-full" />
           <p className="text-xl font-bold">Magdalena Konieczna</p>
           <StarRating stars={5} />
-          <p className="lg:text-lg lg:tracking-wide" >Polecam współpracę z panią Ewą, staty kontakt telefoniczny, mailowy i na Whatsappie. Oprócz projektów pomagała mi
-także z dokumentacją na różnych etapach (warunki zabudowy, pozwolenie na budowę).
+          <p className="lg:text-lg lg:tracking-wide" >Polecam współpracę z panią Ewą, staty kontakt telefoniczny, mailowy i na Whatsappie. Oprócz projektów pomagała mi także z dokumentacją na różnych etapach (warunki zabudowy, pozwolenie na budowę).
           </p>
         </div>
       </FadeInOnScroll>
