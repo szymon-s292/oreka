@@ -8,9 +8,10 @@ import Image from "next/image";
 import { FiRefreshCcw, FiTrash2, FiEdit2 } from 'react-icons/fi';
 import { FiPlus } from 'react-icons/fi';
 
-const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
-
 export default function CategoriesList() {
+  const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+  const BUCKET_URL = process.env.NEXT_PUBLIC_BUCKET_URL as string
+
   const [data, setData] = useState<ProjectCategory[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isLoading, setLoading] = useState(true);
@@ -235,7 +236,7 @@ export default function CategoriesList() {
             <div className="shadow-lg bg-neutral-300 duration-200 rounded-lg">
               {category.photoURL ? (
                 <div className="h-[270px] w-[420px]">
-                  <Image src={category.photoURL} width={420} height={270} alt="category-image" className="rounded-t-lg object-cover w-full h-full" />
+                  <Image src={BUCKET_URL + category.photoURL} width={420} height={270} alt="category-image" className="rounded-t-lg object-cover w-full h-full" />
                 </div>
               ) : (
                 <div className="bg-purple-100 h-[270px] w-[420px]"></div>
@@ -247,7 +248,7 @@ export default function CategoriesList() {
                 setEditMode(true);
                 setShowEditModal(true);
                 setCategoryName(category.name);
-                setImagePreview(`${NEXT_PUBLIC_BASE_URL}${category.photoURL}`);
+                setImagePreview(`${BUCKET_URL}${category.photoURL}`);
                 setCategoryImage(null);
                 setId(category._id);
               }}><FiEdit2 /> Edytuj</button>

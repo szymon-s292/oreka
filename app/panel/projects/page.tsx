@@ -12,8 +12,9 @@ import { FiPlus } from 'react-icons/fi';
 import { MdImage } from 'react-icons/md';
 import { FiFile } from 'react-icons/fi';
 
-const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
 export default function ProjectList() {
+  const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
+  const BUCKET_URL = process.env.NEXT_PUBLIC_BUCKET_URL as string
   const [projects, setProjects] = useState<Project[]>([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isLoading, setLoading] = useState(true);
@@ -359,7 +360,7 @@ export default function ProjectList() {
                     return (
                       <li key={index} className="w-96">
                         <div className="flex justify-between p-2 border text-gray-400 border-gray-300 rounded-md w-full">
-                          <Link target="_blank" href={`${NEXT_PUBLIC_BASE_URL}/uploads/project/${id}/file-${index + 1}.${file.name.split('.').at(-1)}`}>
+                          <Link target="_blank" href={`${BUCKET_URL}/uploads/project/${id}/file-${index + 1}.${file.name.split('.').at(-1)}`}>
                           <p className="hover:underline hover:text-gray-600 cursor-pointer">
                             {file.name}
                           </p>
@@ -425,7 +426,7 @@ export default function ProjectList() {
               <div className="flex flex-col">
                   <div className="h-[270px] w-[420px]">
                     {project?.images && project?.images?.length > 0 ? (
-                      <Image src={`${NEXT_PUBLIC_BASE_URL}${project?.images[0].url}`} width={420} height={270} alt="" className="rounded-t-lg object-cover w-full h-full"/>
+                      <Image src={`${BUCKET_URL}${project?.images[0].url}`} width={420} height={270} alt="" className="rounded-t-lg object-cover w-full h-full"/>
                     ) : (
                       <Image src={"/oreka-logo.png"} width={420} height={270} alt="" className="rounded-t-lg object-cover w-full h-full"/>
                     )}
@@ -461,11 +462,11 @@ export default function ProjectList() {
                 setEditMode(true)
 
                 Promise.all([...(project.images || []).map(img =>
-                    axios.get(`${NEXT_PUBLIC_BASE_URL}${img.url}`, { responseType: 'blob' })
+                    axios.get(`${BUCKET_URL}${img.url}`, { responseType: 'blob' })
                       .then(res => new File([res.data], img.name || 'image', { type: res.data.type }))
                   ),
                   ...(project.files || []).map(file =>
-                    axios.get(`${NEXT_PUBLIC_BASE_URL}${file.url}`, { responseType: 'blob' })
+                    axios.get(`${BUCKET_URL}${file.url}`, { responseType: 'blob' })
                       .then(res => new File([res.data], file.name || 'file', { type: res.data.type }))
                   )
                 ]).then(allFiles => {

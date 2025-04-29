@@ -12,6 +12,7 @@ export default async function ProjectCategories() {
   }
 
   const categories: ProjectCategory[] = await res.json();
+  const BUCKET_URL = process.env.NEXT_PUBLIC_BUCKET_URL as string
 
   return (
     <div className="mx-[15%]">
@@ -29,7 +30,7 @@ export default async function ProjectCategories() {
               <Link href={`/category/${post._id}`}>
                 <div className="h-[220px] w-[300px]">
                   <Image
-                    src={post.photoURL || "/oreka-logo.png"}
+                    src={BUCKET_URL + post.photoURL || "/oreka-logo.png"}
                     width={300}
                     height={220}
                     alt="category-image"

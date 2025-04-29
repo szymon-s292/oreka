@@ -34,11 +34,6 @@ body {
     background-position 0s 0.3s;
 }
 
-footer{
-  background-color: var(--primary);
-  color: var(--background);
-}
-
 button:hover {
   cursor: pointer;
 }

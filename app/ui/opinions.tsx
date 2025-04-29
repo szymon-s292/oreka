@@ -58,7 +58,6 @@ export default function Opinions() {
                 </p>
               </div>
             </FadeInOnScroll>
-
           )
         })}
       </div>

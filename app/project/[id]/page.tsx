@@ -15,8 +15,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
   const id = (await params).id;
 
   const response = await axios.get(`${NEXT_PUBLIC_BASE_URL}/api/project/${id}`);
+  const BUCKET_URL = process.env.NEXT_PUBLIC_BUCKET_URL as string
   const project: Project = response.data;
-
+  
   return (
     <main className="min-h-screen flex flex-col justify-between">
       <Header />
@@ -26,12 +27,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
           {(project.images && project.images.length > 1) && <div className="w-full h-[320px] lg:h-[600px] relative">
             <ImageSlider
               images={project.images}
-              baseUrl={NEXT_PUBLIC_BASE_URL}
+              baseUrl={BUCKET_URL}
               altText={project.name}
             />
             </div>}
           {(project.images && project.images.length === 1) && <div className="w-full h-[320px] lg:h-[500px] relative">
-            <Image src={NEXT_PUBLIC_BASE_URL + project.images[0].url} alt="image" fill className="rounded-lg object-cover"/>
+            <Image src={BUCKET_URL + project.images[0].url} alt="image" fill className="rounded-lg object-cover"/>
             </div>}
 
           <section className="flex gap-8 flex-col lg:flex-row">
@@ -47,7 +48,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
                 {project.files.map((file) => {
                   return (
                     <li key={file.url} className="text-sm hover:underline my-3 flex">
-                      <FiDownload size={20}/><Link href={NEXT_PUBLIC_BASE_URL + file.url} download target="_blank" rel="noopener noreferrer">{file.name}</Link>
+                      <FiDownload size={20}/><Link href={BUCKET_URL + file.url} download target="_blank" rel="noopener noreferrer">{file.name}</Link>
                     </li>
                   )
                 })}

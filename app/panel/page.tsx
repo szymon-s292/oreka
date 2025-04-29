@@ -1,8 +1,12 @@
 import Image from "next/image";
 import { auth } from "../../auth";
+import { redirect } from "next/navigation"
 
 export default async function Panel() {
    const session = await auth()
+
+  if(!session?.user)
+	redirect('/login')
 
     return (
         <section className="flex w-full justify-center items-center h-screen p-8 overflow-y-auto">

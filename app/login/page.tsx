@@ -7,8 +7,7 @@ export default async function LoginPage() {
   const session = await auth()
 
   if (session?.user)
-    redirect('/')
+    redirect('/panel')
   
   return <SessionProvider session={session}><LoginForm/></SessionProvider> 
 }
-

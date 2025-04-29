@@ -10,7 +10,8 @@ import Header from "@/app/ui/header";
 export default async function Category({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL as string;
-
+  const BUCKET_URL = process.env.NEXT_PUBLIC_BUCKET_URL as string
+  
   const categoryData = await axios.get(`${NEXT_PUBLIC_BASE_URL}/api/categories`)
   const category: ProjectCategory | undefined = (await categoryData.data).find(
     (c: ProjectCategory) => c._id === id
@@ -25,7 +26,7 @@ export default async function Category({ params }: { params: Promise<{ id: strin
       <div className="lg:h-[50vh] h-[40vh] w-full relative">
         {category && (
           <Image
-            src={category.photoURL}
+            src={BUCKET_URL + category.photoURL}
             fill
             className="object-cover"
             alt={`Category ${category._id}`}
@@ -43,7 +44,7 @@ export default async function Category({ params }: { params: Promise<{ id: strin
       <div className="lg:mx-[15%] flex flex-col gap-8 my-8">
       {projects && projects.map((p) => {
         const imageUrl = p.images?.[0]?.name
-          ? `${NEXT_PUBLIC_BASE_URL}${p.images[0].url}`
+          ? `${BUCKET_URL}${p.images[0].url}`
           : '/oreka-logo.png';
 
         return (

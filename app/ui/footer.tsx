@@ -3,7 +3,7 @@
 export default function Header()
 {
     return (
-        <footer className="h-60 lg:h-40 lg:py-0 py-5 lg:px-[15%] px-0 flex flex-col lg:flex-row lg:justify-between justify-center gap-5 items-center">
+        <footer className="bg-blue-500 text-white h-60 lg:h-40 lg:py-0 py-5 lg:px-[15%] px-0 flex flex-col lg:flex-row lg:justify-between justify-center gap-5 items-center">
             <ul className="order-1">
                 <li><b>NIP: </b>5140360681</li>
                 <li><b>REGON: </b>525755870</li>
