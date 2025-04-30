@@ -8,6 +8,7 @@ import Opinions from "./ui/opinions";
 import Footer from "./ui/footer"
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
+import Services from "./ui/services";
 
 export default async function Home() {
   const session = await auth()
@@ -19,12 +20,16 @@ export default async function Home() {
       <section className="h-screen" id="start">
         <Hello/>
       </section>
-      <section className="min-h-screen h-fit bg-neutral-300 flex items-center py-15" id="about">
+      <section className="min-h-screen h-fit bg-[#f1f1f1] flex items-center py-15" id="about">
         <About/>
       </section>
     </SessionProvider>
 
-    <section className="min-h-screen h-fit py-16 lg:py-20" id="projects">
+    <section className="min-h-screen py-16 lg:py-20 bg-neutral-300" id="services">
+      <Services/>
+    </section>
+
+    <section className="min-h-screen h-fit py-16 lg:py-20 bg-[#f1f1f1]" id="projects">
       <ProjectCategories/>
     </section>
 
