@@ -4,9 +4,10 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import StarRating from "./rating";
 import FadeInOnScroll from "@/app/FadeInOnScroll";
+import CardContainer from "./card-container";
+import Card from "./card";
 
 interface Opinion {
-  _id: string
   issuer: string,
   content: string
   stars: number
@@ -25,13 +26,11 @@ export default function Opinions() {
 
   const opinions: Opinion[] = [
     {
-      _id: "1",
       issuer: "Paulina Sztandera",
       content: "Jestem bardzo zadowolona ze współpracy z Panią Ewą. Nie tylko przygotowała projekt domu ale również pomogła w dużo szerszym zakresie. Bardzo dobry kontakt i pozytywne nastawienie to kolejne atuty Pani Ewy Serdecznie polecam współpracę.", 
       stars: 5
     },
     {
-      _id: "2",
       issuer: "Magdalena Konieczna",
       content: "Polecam współpracę z panią Ewą, stały kontakt telefoniczny, mailowy i na Whatsappie. Oprócz projektów pomagała mi także z dokumentacją na różnych etapach (warunki zabudowy, pozwolenie na budowę).",
       stars: 5
@@ -41,25 +40,25 @@ export default function Opinions() {
   return (
     <div className="h-full">
       <FadeInOnScroll delay={200}>
-        <div className="mx-[15%] py-16">
-          <p className="text-5xl font-bold mb-5 lg:mb-10 ">Opinie klientów</p>
+        <div className="mx-[15%]">
+          <p className="text-5xl font-bold mb-5 lg:mb-10">Opinie klientów</p>
         </div>
       </FadeInOnScroll>
-      <div ref={scrollContainerRef}  className="flex lg:px-[15%] lg:gap-12 gap-5 flex-nowrap text-center  lg:justify-center overflow-x-auto items-center px-8 h-[600px] scroll-smooth">
-        {opinions.map(o => {
-          return (
-            <FadeInOnScroll delay={400} key={o._id}>
-              <div className="transition-transform duration-300 py-4 text-sm hover:scale-105 bg-white p-4 h-[500px] w-[250px] lg:w-[350px] rounded-xl shadow-lg flex justify-evenly flex-col items-center lg:p-10">
-                <Image src="/person.svg" height={100} width={100} alt="person" className="rounded-full" />
-                <p className="text-xl font-bold text-center">{o.issuer}</p>
-                <StarRating stars={o.stars} />
-                <p className="lg:text-lg lg:tracking-wide text-center overflow-y-auto max-h-[200px]">
-                  {o.content}
-                </p>
-              </div>
-            </FadeInOnScroll>
-          )
-        })}
+      <div ref={scrollContainerRef}>
+        <FadeInOnScroll delay={600}>
+          <CardContainer css="lg:mx-[15%] lg:px-0 px-16 mb-10 lg:justify-center">
+            {opinions.map((o, i) => {
+              return (
+                <Card key={i} css={`min-w-[320px] w-[320px] min-h-[300px] flex items-center gap-4 py-8`}>
+                  <Image src={'/person.svg'} alt="Opinia" width={64} height={64}></Image>
+                  <StarRating stars={o.stars}/>
+                  <p className="text-2xl font-bold text-center text-black">{o.issuer}</p>
+                  <p className="text-center">{o.content}</p>
+                </Card>
+              )
+            })}
+          </CardContainer>
+        </FadeInOnScroll>        
       </div>
     </div>
   );

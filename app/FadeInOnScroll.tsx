@@ -33,7 +33,7 @@ export default function FadeInOnScroll({ children, delay = 0 }: FadeInOnScrollPr
   return (
     <div
       ref={ref}
-      className={`opacity-0 translate-y-4 transition-all duration-700`}
+      className={`opacity-0 translate-y-4 transition-all duration-700 h-fit overflow-hidden`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}

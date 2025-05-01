@@ -20,12 +20,12 @@ export default async function Home() {
       <section className="h-screen" id="start">
         <Hello/>
       </section>
-      <section className="min-h-screen h-fit bg-[#f1f1f1] flex items-center py-15" id="about">
+      <section className="min-h-screen h-fit py-16 lg:py-20 bg-[#f1f1f1]" id="about">
         <About/>
       </section>
     </SessionProvider>
 
-    <section className="min-h-screen py-16 lg:py-20 bg-neutral-300" id="services">
+    <section className="py-16 lg:py-20 bg-neutral-300" id="services">
       <Services/>
     </section>
 
@@ -34,7 +34,7 @@ export default async function Home() {
     </section>
 
     <SessionProvider session={session}>
-      <section className="h-fit py-10 lg:py-0 lg:h-screen bg-neutral-300" id="opinions">
+      <section className="h-fit py-16 lg:py-20 bg-neutral-300" id="opinions">
         <Opinions/>
       </section>
       <section id="contact" className="py-16 lg:py-0 lg:h-screen flex flex-col lg:flex-row items-center justify-center gap-8 lg:px-[15%]">

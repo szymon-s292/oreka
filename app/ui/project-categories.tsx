@@ -21,14 +21,11 @@ export default async function ProjectCategories() {
       </FadeInOnScroll>
 
       <FadeInOnScroll delay={600}>
-        <div className="flex flex-wrap justify-center lg:justify-start gap-8">
+        <div className="flex flex-wrap rounded-lg justify-center lg:justify-start gap-8">
           {categories.map((post) => (
-            <div
-              key={post._id}
-              className="shadow-lg rounded-lg bg-neutral-300 hover:text-white hover:bg-blue-400 duration-200"
-            >
+            <div key={post._id} className="shadow-lg rounded-lg bg-neutral-300 hover:text-white hover:bg-blue-400 duration-200">
               <Link href={`/category/${post._id}`}>
-                <div className="h-[220px] w-[300px]">
+                <div className="h-[220px] w-[300px] rounded-t-lg">
                   <Image
                     src={BUCKET_URL + post.photoURL || "/oreka-logo.png"}
                     width={300}

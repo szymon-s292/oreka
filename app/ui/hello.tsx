@@ -3,10 +3,8 @@ import Link from "next/link";
 export default function Hello() {
   return (
     <section className="h-screen relative flex items-center justify-center text-gray-800 parallax-bg" >
-      <div className="absolute inset-0 bg-opacity-60"></div>
-
-      <div className="relative z-10 max-w-3xl rounded-lg text-center p-6" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-fade-in-up">
+      <div className=" max-w-3xl lg:rounded-lg text-center p-6" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+        <h1 className="text-4xl md:text-6xl font-bold  mb-6 animate-fade-in-up">
           Zrealizuj swoje marzenie o domu
           <br />
           <span className="text-gray-800">Wybierz najlepszy projekt dla siebie</span>

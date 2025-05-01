@@ -4,11 +4,10 @@ import FadeInOnScroll from "@/app/FadeInOnScroll";
 import { FaHome } from 'react-icons/fa';
 import { GiElectric } from 'react-icons/gi';
 import { BsGraphUp } from 'react-icons/bs';
+import CardContainer from "./card-container";
+import Card from "./card";
 
 export default async function Services() {
- 
-  const BUCKET_URL = process.env.NEXT_PUBLIC_BUCKET_URL as string
-
   const services = [
     {
       tytul: 'Projekty budynków',
@@ -38,28 +37,32 @@ export default async function Services() {
   ];
 
   return (
+    <>
     <div className="mx-[15%]">
       <FadeInOnScroll delay={200}>
         <p className="text-5xl font-bold mb-5 lg:mb-10">Usługi</p>
       </FadeInOnScroll>
-
-        <div className="flex flex-wrap lg:justify-center lg:mt-32 justify-start h-full items-center gap-8">
-          {services.map((service, i) => {
-            return (
-              <FadeInOnScroll delay={400} key={i}>
-                <div className="transition-transform duration-300 gap-10 py-16 text-sm hover:scale-105 bg-white h-[400px] w-[250px] lg:w-[350px] rounded-xl shadow-lg flex flex-col items-center lg:p-10">
-                  <p>{service.ikona}</p>
-                  <p className="text-xl font-bold text-center">{service.tytul}</p>
-                  <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    {service.punkty.map((punkt, i) => (
-                      <li key={i}>{punkt}</li>
-                    ))}
-                  </ul>
-                </div>
-              </FadeInOnScroll> 
-            )
-          })}
-        </div>
     </div>
+
+    <FadeInOnScroll delay={600}>
+      <CardContainer css="lg:mx-[15%] lg:px-0 px-16 mb-10 lg:justify-center">
+        {services.map((s, i) => {
+          return (
+            <Card key={i} css={`min-w-[320px] w-[320px] min-h-[300px] flex items-center gap-8 pt-8`}>
+              <i>{s.ikona}</i>
+              <p className="text-2xl font-bold text-center text-black">{s.tytul}</p>
+              <div className="flex flex-col justify-center">
+                <ul className="space-y-2">
+                  {s.punkty.map((p, j) => {
+                    return <li className="text-center" key={j}>{p}</li>
+                  })}
+                </ul>
+              </div>
+            </Card>
+          )
+        })}
+      </CardContainer>
+    </FadeInOnScroll>
+    </>
   );
 }
