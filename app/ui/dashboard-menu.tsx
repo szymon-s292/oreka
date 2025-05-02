@@ -2,9 +2,11 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { FiHome, FiMail, FiFolder, FiGrid, FiUsers, FiX, FiMenu } from "react-icons/fi";
+import { FiHome, FiMail, FiFolder, FiGrid, FiUsers, FiX, FiMenu, FiUser, FiBarChart2 } from "react-icons/fi";
 import Logout from "../ui/logout";
 import { useState, useEffect } from "react";
+import { FaRegEdit, } from "react-icons/fa";
+
 
 export default function Menu() {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -12,10 +14,13 @@ export default function Menu() {
 
     const navItems = [
         { id: 0, href: "/panel", label: "Panel główny", icon: <FiHome size={18} className="mr-2" /> },
+        { id: 5, href: "/panel/articles", label: "Artykuły", icon: <FaRegEdit size={18} className="mr-2" /> },
         { id: 1, href: "/panel/contacts", label: "Próby kontaktu", icon: <FiMail size={18} className="mr-2" /> },
         { id: 2, href: "/panel/categories", label: "Kategorie projektów", icon: <FiFolder size={18} className="mr-2" /> },
         { id: 3, href: "/panel/projects", label: "Projekty", icon: <FiGrid size={18} className="mr-2" /> },
-        { id: 4, href: "/panel/userinfo", label: "Twoje informacje", icon: <FiUsers size={18} className="mr-2" /> },
+        { id: 4, href: "/panel/userinfo", label: "Twoje informacje", icon: <FiUser size={18} className="mr-2" /> },
+        // { id: 6, href: "/panel/manageusers", label: "Zarządzaj użytkownikami", icon: <FiUsers size={18} className="mr-2" /> },
+        // { id: 7, href: "/panel/analitics", label: "Analityka", icon: <FiBarChart2 size={18} className="mr-2" /> },
     ];
 
     // Track screen size

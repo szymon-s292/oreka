@@ -47,3 +47,10 @@ export interface User {
     email: string
     isAdmin: boolean
 }
+
+export interface Article {
+    _id: string
+    title: string
+    author: string
+    content: string
+}
