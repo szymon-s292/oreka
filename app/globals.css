@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f1f1f1;
+  --foreground: #272727;
+  --primary: #4f8af7;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-link:hover{
+  color: var(--primary);
+  background-position: 100% 100%;
+  background-size: 100% 2px;
+}
+
+.nav-link{
+  display: inline-block;
+  padding-bottom:2px;
+  background-image: linear-gradient(var(--primary) 0 0);
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  transition:
+    background-size 0.3s,
+    background-position 0s 0.3s;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#contact{
+  background-image: url("/background-contact.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#start {
+  background-image: url("/background-contact.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s ease-out forwards;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.1s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+
+@layer utilities {
+  .animate-show {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
