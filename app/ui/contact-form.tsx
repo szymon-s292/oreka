@@ -28,7 +28,7 @@ const formatDate = (date: Date): string => {
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit, reset } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
     setLoading(true);
@@ -48,8 +48,10 @@ const ContactForm = () => {
       message: data.message,
       time: formatDate(currentDate)
     }).then(res => {
-      if(res.status == 200)
+      if(res.status == 200) {
+        reset()
         toast.success("Wiadomość wysłana pomyślnie!")
+      }
       else
         toast.error("Spróbuj ponownie później")
     }).catch(err => {

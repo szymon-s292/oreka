@@ -1,27 +1,27 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ['oreka-eg.pl'],
+  allowedDevOrigins: ['dev.oreka-eg.pl'],
   reactStrictMode: true,
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        pathname: '/uploads/**',
-      },
-      {
-        protocol: 'http',
-        hostname: 'oreka-eg.pl',
-        pathname: '/uploads/**',
-      },
-      {
         protocol: 'https',
-        hostname: 'oreka-eg.pl',
-        pathname: '/uploads/**',
+        hostname: 'bucket.oreka-eg.pl',
+        pathname: '/**',
       },
     ],
+  },
+  async rewrites() {
+    return [
+      { source: '/artykuły', destination: '/articles' },
+      { source: '/kategorie', destination: '/categories' },
+      { source: '/projekty', destination: '/projects' },
+
+      { source: '/artykuły/:id', destination: '/articles/:id' },
+      { source: '/kategorie/:id', destination: '/categories/:id' },
+      { source: '/projekty/:id', destination: '/projects/:id' },
+    ];
   },
 };
 

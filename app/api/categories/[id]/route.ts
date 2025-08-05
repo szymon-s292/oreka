@@ -110,6 +110,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     if(category.photoURL) {
       const filename = category.photoURL.split('/').at(-1)
       const { success, data } = await deleteFromBucket([filename])
+
       if(!success) {
         return new Response(null, { status: 503 });
       }
@@ -132,12 +133,14 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
       }
     }
 
-    const { success, data } = await deleteFromBucket(filenames)
-    if(!success) {
-      return new Response(null, { status: 503 });
+    if(filenames.length != 0) {
+      const { success, data } = await deleteFromBucket(filenames)
+      if(!success) {
+        return new Response(null, { status: 503 });
+      }
+      await projects.deleteMany({categoryId: new ObjectId(id)})
     }
-  
-    await projects.deleteMany({categoryId: new ObjectId(id)})
+    
     await collection.deleteOne({ _id: new ObjectId(id)});
 
     return new Response(JSON.stringify({ status: "ok" }), {

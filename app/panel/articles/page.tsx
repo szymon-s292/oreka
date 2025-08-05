@@ -5,7 +5,7 @@ import { FiEdit2, FiPlus, FiRefreshCcw, FiTrash2 } from "react-icons/fi";
 import axios from 'axios'
 import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
-import ArticlesList from "@/app/ui/articles"
+
 import { useSession } from "next-auth/react";
 
 export default function Page() {
